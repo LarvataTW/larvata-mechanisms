@@ -1,0 +1,19 @@
+{
+  "name": "larvata-mechanisms",
+  "version": "0.1.0",
+  "description": "Larvata Mechanisms provides javascripts and helpers",
+  "main": "index.js",
+  "private": false,
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LarvataTW/larvata-mechanisms.git"
+  },
+  "author": "Jack Tsai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LarvataTW/larvata-mechanisms/issues"
+  },
+  "homepage": "https://github.com/LarvataTW/larvata-mechanisms",
+  "dependencies": {}
+}
