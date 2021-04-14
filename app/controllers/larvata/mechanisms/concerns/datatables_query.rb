@@ -17,7 +17,7 @@ module Larvata::Mechanisms::Concerns::DatatablesQuery
 
     # 設定 ransack 查詢條件
     def handle_filters(class_name)
-      @filters = DatatablesService.new({ class_name: class_name }).handle_filters(params)
+      @filters = Larvata::Mechanisms::DatatablesService.new({ class_name: class_name }).handle_filters(params)
     end
 
     # 設定 ransack 關鍵字查詢
