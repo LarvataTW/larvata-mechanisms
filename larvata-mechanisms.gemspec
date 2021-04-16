@@ -28,6 +28,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.5"
   spec.add_dependency "ransack", "~> 2.4.2"
   spec.add_dependency "pagy", "~> 3.12.0"
+  spec.add_dependency 'devise', '~> 4.7.3'
+  spec.add_dependency 'rolify', '~> 5.3.0'
 
-  spec.add_development_dependency "mysql2"
+  spec.add_development_dependency "mysql2", '~> 0.5.3'
+  spec.add_development_dependency 'dotenv-rails', '~> 2.7.6'
+  spec.add_development_dependency 'rspec-rails', '~> 4.0.2'
+  spec.add_development_dependency 'factory_bot_rails', '~> 6.1.0'
 end

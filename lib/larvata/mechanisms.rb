@@ -2,6 +2,7 @@ require "larvata/mechanisms/engine"
 
 module Larvata
   module Mechanisms
-    # Your code goes here...
+    mattr_accessor :table_name_prefix
+    @@table_name_prefix = nil
   end
 end
