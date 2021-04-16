@@ -5,9 +5,9 @@ class Larvata::Mechanisms::HasPermissionService
   end
 
   def call
-    Func.joins(:permissions)
+    Larvata::Mechanisms::Func.joins(:permissions)
         .where(name: @func_name)
-        .where(Permission.table_name => {role_id: role_ids})
+        .where(Larvata::Mechanisms::Permission.table_name => {role_id: role_ids})
         .any?
   end
 
