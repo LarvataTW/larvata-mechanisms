@@ -59,7 +59,10 @@ module Larvata::Mechanisms::Inputs::CollectionHelper
   # text_method: 可透過指定方法取得顯示文字，預設為 :last
   # input_class_name: 項目的 class
   # disabled: 是否禁用，預設為 false
-  def select2_tag(form:, label:, field_name:, collection: [], value_method: :first, text_method: :last, input_class_name: '', value: '', disabled: false, multiple: false)
+  # allow_clear: 是否可清空，預設為 true
+  def select2_tag(form:, label:, field_name:, collection: [], value_method: :first, text_method: :last, input_class_name: '', value: '', disabled: false, multiple: false, allow_clear: true)
+    allow_clear_class = allow_clear ? 'allow-clear' : ''
+
     content_tag(:div, class: 'form-group bmd-form-group is-filled') do
       label_part = label_tag(label, nil, class: 'bmd-label-floating')
       select_part = form.collection_select field_name, collection, value_method, text_method,
@@ -69,7 +72,7 @@ module Larvata::Mechanisms::Inputs::CollectionHelper
                                              selected: value
                                            },
                                            {
-                                             class: 'form-control select2',
+                                             class: "form-control select2 #{allow_clear_class}",
                                              multiple: multiple,
                                              disabled: disabled
                                            }
