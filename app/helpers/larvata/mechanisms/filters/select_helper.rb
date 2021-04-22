@@ -11,7 +11,7 @@ module Filters::SelectHelper
       label_tag(label, nil, class: 'bmd-label-floating') +
         select_tag(name,
                    options_for_select(collection, value),
-                   class: "form-control filter-#{name} filter-select-condition #{class_name} select2",
+                   class: "form-control filter-#{name} filter-select-condition #{class_name}",
                    disabled: disabled,
                    multiple: multiple)
     end
