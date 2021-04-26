@@ -1,4 +1,4 @@
-module Filters::SelectHelper
+module Larvata::Mechanisms::Filters::SelectHelper
   # label: enum 欄位說明
   # name: 欄位名稱
   # collection: 選項
