@@ -23,8 +23,9 @@ class Larvata::Mechanisms::DatatablesService
       elsif search_column.include? "_enum" # enum 查詢
         search_column = search_column.gsub('_enum', '')
 
-        plural_search_column = search_column.pluralize
-        search_value = @class_const&.send(plural_search_column)[search_value.to_sym]
+        # 使用 enumerize 套件來取代原始 rails 的 enum 方法所以不需要再去取 enum 值 
+        # plural_search_column = search_column.pluralize
+        # search_value = @class_const&.send(plural_search_column)[search_value.to_sym]
 
         filters["#{search_column}_eq".to_sym] = search_value if search_value
       else
