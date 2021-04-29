@@ -28,6 +28,10 @@ class Larvata::Mechanisms::DatatablesService
         # search_value = @class_const&.send(plural_search_column)[search_value.to_sym]
 
         filters["#{search_column}_eq".to_sym] = search_value if search_value
+      elsif search_column.include? '_tags' # 多 select tag 查詢
+        search_column = search_column.gsub('_tags', '')
+
+        filters["#{search_column}_in".to_sym] = search_value.split(',') if search_value
       else
         filters[search_column.to_sym] = search_value if search_value
       end
