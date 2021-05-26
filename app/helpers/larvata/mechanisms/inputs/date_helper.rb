@@ -9,6 +9,7 @@ module Larvata::Mechanisms::Inputs::DateHelper
         text = content_tag(:div, class: 'col-md-12') do
           form.input_field(input_field_name, option = { value: value,
                                                         class: "form-control #{input_class_name}",
+                                                        autocomplete: 'off',
                                                         as: :string, disabled: disabled})
         end
 
