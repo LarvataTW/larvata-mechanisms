@@ -10,7 +10,7 @@ module Larvata::Mechanisms::Inputs::FileHelper
   def file_tag(form:, uploader:, model:, label:, field_name:, preview_thumbnail:, preview_height:, preview_width:, preview_placeholder:, disabled: false)
     file = model.send("#{field_name.to_s}")
     filename = file&.metadata&.dig('filename')
-    file_thumbnail_url = image?(file) ? model.send("#{field_name.to_s}_url", preview_thumbnail).presence : asset_path("file_types/#{extname(file)}.png")
+    file_thumbnail_url = image?(file) ? model.send("#{field_name.to_s}_url", preview_thumbnail).presence : "larvata/mechanisms/file_types/#{extname(file)}.png"
 
     preview_thumbnail_url = file_thumbnail_url || "https://fakeimg.pl/#{preview_width}x#{preview_height}/?text=#{preview_placeholder}&font=noto"
 
