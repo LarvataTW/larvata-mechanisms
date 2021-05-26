@@ -24,9 +24,9 @@ module Larvata::Mechanisms::Filters::RangeHelper
   def field_tag(type, column_name, suffix)
     case type
     when 'number'
-      number_field_tag("#{column_name}_#{suffix}", nil, class: "form-control filter-#{column_name} filter-range-#{column_name} filter-range-condition")
+      number_field_tag("#{column_name}_#{suffix}", nil, class: "form-control filter-#{column_name} filter-range-#{column_name} filter-range-condition", autocomplete: 'off')
     else
-      text_field_tag("#{column_name}_#{suffix}", nil, class: "form-control #{type} filter-#{column_name} filter-range-#{column_name} filter-range-condition")
+      text_field_tag("#{column_name}_#{suffix}", nil, class: "form-control #{type} filter-#{column_name} filter-range-#{column_name} filter-range-condition", autocomplete: 'off')
     end
   end
 end
