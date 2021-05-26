@@ -10,8 +10,13 @@ module Larvata::Mechanisms::Concerns::Select2Query
       @select2_filter = params[:search]
     end
 
+    def select2_json_options(value_method, label_method)
+      @select2_value_method = value_method
+      @select2_label_method = label_method
+    end
+
     def records_json
-      @records.map{|record| {id: record.id, text: record.name}}
+      @records.map{|record| {id: record.try(@select2_value_method), text: record.try(@select2_label_method)}}
     end
 
     def select2_json
@@ -33,8 +38,9 @@ module Larvata::Mechanisms::Concerns::Select2Query
       @select2_query.sorts = sorts
     end
 
-    def select2_records_json(scope, keyword_field, sorts = 'undated_at desc')
+    def select2_records_json(scope, keyword_field, sorts = 'updated_at desc', value_method: 'id', label_method: 'name')
       select2_query_options
+      select2_json_options(value_method, label_method)
       select2_query(scope, keyword_field, sorts)
       @pagy, @records = pagy(@select2_query.result, items: @per, page: @page)
       select2_json
