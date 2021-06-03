@@ -12,6 +12,9 @@ class Larvata::Mechanisms::DatatablesService
       search_column = column[:name]
       search_value = column[:search][:value]
 
+      # 略過空值以及 null 值
+      next if search_value.blank? or search_value == "null"
+
       if search_column.include? "_between" # 區間查詢
         search_column = search_column.gsub('_between', '')
         search_value_array = search_value.split(" - ")
@@ -23,7 +26,7 @@ class Larvata::Mechanisms::DatatablesService
       elsif search_column.include? "_enum" # enum 查詢
         search_column = search_column.gsub('_enum', '')
 
-        # 使用 enumerize 套件來取代原始 rails 的 enum 方法所以不需要再去取 enum 值 
+        # 使用 enumerize 套件來取代原始 rails 的 enum 方法所以不需要再去取 enum 值
         # plural_search_column = search_column.pluralize
         # search_value = @class_const&.send(plural_search_column)[search_value.to_sym]
 
