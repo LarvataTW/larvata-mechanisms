@@ -9,3 +9,4 @@ spec/dummy/tmp/
 spec/dummy/.env
 
 /.idea/*
+.idea/larvata-mechanisms.iml
