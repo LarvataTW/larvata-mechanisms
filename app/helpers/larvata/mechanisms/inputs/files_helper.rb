@@ -2,10 +2,11 @@ module Larvata::Mechanisms::Inputs::FilesHelper
   # form: 表單物件
   # uploader: 要使用的 Uploader 物件
   # disabled: 是否禁用，預設為 false
-  def files_tag(label:, form:, uploader:, disabled: false)
+  # association: 關聯的檔案上傳 model，預設為 :attachments
+  def files_tag(label:, form:, uploader:, disabled: false, association: :attachments)
     file_field = content_tag(:div, class: 'col-md-12') do
       content_tag(:div, class: 'form-group') do
-        form.file_field :attachments, multiple: true, disabled: disabled,
+        form.file_field association, multiple: true, disabled: disabled,
                         accept: uploader::ALLOWED_TYPES.join(","),
                         data: {
                           upload_server: upload_server,
