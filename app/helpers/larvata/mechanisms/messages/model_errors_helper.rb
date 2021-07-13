@@ -15,7 +15,7 @@ module Larvata::Mechanisms::Messages::ModelErrorsHelper
   private
 
   def target_element_id(model, message_key)
-    main_element_part = model_name_from_record_or_class(model).name.demodulize.underscore
+    main_element_part = model_name_from_record_or_class(model).name.underscore.gsub('/', '_')
     nested_element_part = message_key.to_s.gsub('.', '_attributes_')
     "#{main_element_part}_#{nested_element_part}"
   end
