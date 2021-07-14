@@ -1,5 +1,5 @@
 module Larvata
   module Mechanisms
-    VERSION = '0.2.16'
+    VERSION = '0.2.17'
   end
 end
