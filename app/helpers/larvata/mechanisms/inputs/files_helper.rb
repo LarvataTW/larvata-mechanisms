@@ -22,32 +22,34 @@ module Larvata::Mechanisms::Inputs::FilesHelper
       end
     end
 
-    attachments_list = form.simple_fields_for :attachments do |pf|
-      content_tag(:div, class: 'col-md-3') do
-        file = pf&.object&.file
-        image_url = image?(file) ? pf&.object&.file_url(:medium) : asset_path("file_types/#{extname(file)}.png")
+    attachments_list = content_tag(:div, class: 'row') do
+      form.simple_fields_for association do |pf|
+        content_tag(:div, class: 'col-md-3') do
+          file = pf&.object&.file
+          image_url = image?(file) ? pf&.object&.file_url(:medium) : asset_path("file_types/#{extname(file)}.png")
 
-        content_tag(:div, class: 'row') do
-          image_part = content_tag(:div, class: 'col-md-12') do
-            image_tag image_url, width: 128, title: filename(file), class: 'img-thumbnail'
-          end
-
-          desc_part = content_tag(:div, class: 'col-md-12') do
-
-            content_tag(:div, class: 'row') do
-              destroy_part = content_tag(:div, class: 'col-md-2') do
-                pf.check_box :_destroy
-              end
-
-              label_part = content_tag(:div, class: 'col-md-10') do
-                label_tag filename(file)
-              end
-
-              destroy_part + label_part
+          content_tag(:div, class: 'row') do
+            image_part = content_tag(:div, class: 'col-md-12') do
+              image_tag image_url, width: 128, title: filename(file), class: 'img-thumbnail'
             end
-          end
 
-          desc_part + image_part
+            desc_part = content_tag(:div, class: 'col-md-12') do
+
+              content_tag(:div, class: 'row') do
+                destroy_part = content_tag(:div, class: 'col-md-2') do
+                  pf.check_box :_destroy
+                end
+
+                label_part = content_tag(:div, class: 'col-md-10') do
+                  label_tag filename(file)
+                end
+
+                destroy_part + label_part
+              end
+            end
+
+            desc_part + image_part
+          end
         end
       end
     end
