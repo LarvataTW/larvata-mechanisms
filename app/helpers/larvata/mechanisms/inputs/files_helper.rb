@@ -26,7 +26,7 @@ module Larvata::Mechanisms::Inputs::FilesHelper
       form.simple_fields_for association do |pf|
         content_tag(:div, class: 'col-md-3') do
           file = pf&.object&.file
-          image_url = image?(file) ? pf&.object&.file_url(:medium) : asset_path("file_types/#{extname(file)}.png")
+          image_url = image?(file) ? pf&.object&.file_url(:medium) : "larvata/mechanisms/file_types/#{extname(file)}.png"
 
           content_tag(:div, class: 'row') do
             image_part = content_tag(:div, class: 'col-md-12') do
