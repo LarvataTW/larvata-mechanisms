@@ -3,7 +3,8 @@ module Larvata::Mechanisms::Inputs::FilesHelper
   # uploader: 要使用的 Uploader 物件
   # disabled: 是否禁用，預設為 false
   # association: 關聯的檔案上傳 model，預設為 :attachments
-  def files_tag(label:, form:, uploader:, disabled: false, association: :attachments)
+  # preview_thumbnail: 縮圖類別
+  def files_tag(label:, form:, uploader:, disabled: false, association: :attachments, preview_thumbnail:)
     file_field = content_tag(:div, class: 'col-md-12') do
       content_tag(:div, class: 'form-group') do
         form.file_field association, multiple: true, disabled: disabled,
@@ -26,7 +27,7 @@ module Larvata::Mechanisms::Inputs::FilesHelper
       form.simple_fields_for association do |pf|
         content_tag(:div, class: 'col-md-3') do
           file = pf&.object&.file
-          image_url = image?(file) ? pf&.object&.file_url(:medium) : "larvata/mechanisms/file_types/#{extname(file)}.png"
+          image_url = image?(file) ? files_preview_url(pf&.object, preview_thumbnail) : "larvata/mechanisms/file_types/#{extname(file)}.png"
 
           content_tag(:div, class: 'row') do
             image_part = content_tag(:div, class: 'col-md-12') do
@@ -55,5 +56,11 @@ module Larvata::Mechanisms::Inputs::FilesHelper
     end
 
     file_field + attachments_list
+  end
+
+  private
+
+  def files_preview_url(object, preview_thumbnail)
+    (preview_thumbnail ? object&.file_url(preview_thumbnail) : object&.file_url).presence
   end
 end

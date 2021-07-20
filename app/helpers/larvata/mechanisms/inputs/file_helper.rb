@@ -10,28 +10,28 @@ module Larvata::Mechanisms::Inputs::FileHelper
   def file_tag(form:, uploader:, model:, label:, field_name:, preview_thumbnail:, preview_height:, preview_width:, preview_placeholder:, disabled: false)
     file = model.send("#{field_name.to_s}")
     filename = file&.metadata&.dig('filename')
-    file_thumbnail_url = image?(file) ? model.send("#{field_name.to_s}_url", preview_thumbnail).presence : "larvata/mechanisms/file_types/#{extname(file)}.png"
+    file_thumbnail_url = image?(file) ? file_preview_url(model, field_name, preview_thumbnail) : "larvata/mechanisms/file_types/#{extname(file)}.png"
 
-    preview_thumbnail_url = file_thumbnail_url || "https://fakeimg.pl/#{preview_width}x#{preview_height}/?text=#{preview_placeholder}&font=noto"
+    preview_thumbnail_url = file_thumbnail_url.presence || "https://fakeimg.pl/#{preview_width}x#{preview_height}/?text=#{preview_placeholder}&font=noto"
 
     file_field_content = content_tag(:div, class: 'form-group') do
       file_field = form.file_field field_name.to_s,
-                      class: 'uppy-choose', disabled: disabled,
-                      accept: defined?(uploader::ALLOWED_TYPES) ? uploader::ALLOWED_TYPES.join(",") : nil,
-                      data: {
-                        label: label,
-                        upload_server: upload_server,
-                        preview_element: "preview-#{field_name.to_s}",
-                        upload_result_element: "album-#{field_name.to_s}",
-                        restrictions: {
-                          maxFileSize: defined?(uploader::MAX_SIZE) ? uploader::MAX_SIZE : nil,
-                          minFileSize: defined?(uploader::MIN_SIZE) ? uploader::MIN_SIZE : nil,
-                          maxTotalFileSize: defined?(uploader::MAX_TOTAL_SIZE) ? uploader::MAX_TOTAL_SIZE : nil,
-                          maxNumberOfFiles: defined?(uploader::MAX_NUMBER) ? uploader::MAX_NUMBER : nil,
-                          minNumberOfFiles: defined?(uploader::MIN_NUMBER) ? uploader::MIN_NUMBER : nil,
-                          allowedFileTypes: defined?(uploader::ALLOWED_TYPES) ? uploader::ALLOWED_TYPES.join(",") : nil,
-                        },
-                      }
+                                   class: 'uppy-choose', disabled: disabled,
+                                   accept: defined?(uploader::ALLOWED_TYPES) ? uploader::ALLOWED_TYPES.join(",") : nil,
+                                   data: {
+                                     label: label,
+                                     upload_server: upload_server,
+                                     preview_element: "preview-#{field_name.to_s}",
+                                     upload_result_element: "album-#{field_name.to_s}",
+                                     restrictions: {
+                                       maxFileSize: defined?(uploader::MAX_SIZE) ? uploader::MAX_SIZE : nil,
+                                       minFileSize: defined?(uploader::MIN_SIZE) ? uploader::MIN_SIZE : nil,
+                                       maxTotalFileSize: defined?(uploader::MAX_TOTAL_SIZE) ? uploader::MAX_TOTAL_SIZE : nil,
+                                       maxNumberOfFiles: defined?(uploader::MAX_NUMBER) ? uploader::MAX_NUMBER : nil,
+                                       minNumberOfFiles: defined?(uploader::MIN_NUMBER) ? uploader::MIN_NUMBER : nil,
+                                       allowedFileTypes: defined?(uploader::ALLOWED_TYPES) ? uploader::ALLOWED_TYPES.join(",") : nil,
+                                     },
+                                   }
 
       hidden_field = form.hidden_field field_name, id: "album-#{field_name.to_s}", value: model.send("cached_#{field_name.to_s}_data")
 
@@ -55,5 +55,11 @@ module Larvata::Mechanisms::Inputs::FileHelper
     end
 
     file_field_content + image_preview
+  end
+
+  private
+
+  def file_preview_url(object, field_name, preview_thumbnail)
+    preview_thumbnail ? object&.send("#{field_name}_url", preview_thumbnail) : object&.send("#{field_name}_url")
   end
 end
