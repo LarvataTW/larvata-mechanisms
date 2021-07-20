@@ -4,7 +4,7 @@ module Larvata::Mechanisms::Inputs::FilesHelper
   # disabled: 是否禁用，預設為 false
   # association: 關聯的檔案上傳 model，預設為 :attachments
   # preview_thumbnail: 縮圖類別
-  def files_tag(label:, form:, uploader:, disabled: false, association: :attachments, preview_thumbnail:)
+  def files_tag(label:, form:, uploader:, disabled: false, association: :attachments, preview_thumbnail: nil)
     file_field = content_tag(:div, class: 'col-md-12') do
       content_tag(:div, class: 'form-group') do
         form.file_field association, multiple: true, disabled: disabled,

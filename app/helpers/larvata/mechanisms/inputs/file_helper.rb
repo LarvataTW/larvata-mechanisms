@@ -7,7 +7,7 @@ module Larvata::Mechanisms::Inputs::FileHelper
   # preview_thumbnail: 縮圖類型
   # preview_width: 縮圖寬度
   # disabled: 是否禁用，預設為 false
-  def file_tag(form:, uploader:, model:, label:, field_name:, preview_thumbnail:, preview_height:, preview_width:, preview_placeholder:, disabled: false)
+  def file_tag(form:, uploader:, model:, label:, field_name:, preview_thumbnail: nil, preview_height:, preview_width:, preview_placeholder:, disabled: false)
     file = model.send("#{field_name.to_s}")
     filename = file&.metadata&.dig('filename')
     file_thumbnail_url = image?(file) ? file_preview_url(model, field_name, preview_thumbnail) : "larvata/mechanisms/file_types/#{extname(file)}.png"
