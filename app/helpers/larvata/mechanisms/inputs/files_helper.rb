@@ -37,15 +37,21 @@ module Larvata::Mechanisms::Inputs::FilesHelper
             desc_part = content_tag(:div, class: 'col-md-12') do
 
               content_tag(:div, class: 'row') do
-                destroy_part = content_tag(:div, class: 'col-md-2') do
+                icon_part = content_tag(:div, class: 'col-md-1') do
+                  tag.span class: 'material-icons' do
+                    'delete_forever'
+                  end
+                end
+
+                destroy_part = content_tag(:div, class: 'col-md-1') do
                   pf.check_box :_destroy
                 end
 
-                label_part = content_tag(:div, class: 'col-md-10') do
+                label_part = content_tag(:div, class: 'col-md-8') do
                   label_tag filename(file)
                 end
 
-                destroy_part + label_part
+                icon_part + destroy_part + label_part
               end
             end
 

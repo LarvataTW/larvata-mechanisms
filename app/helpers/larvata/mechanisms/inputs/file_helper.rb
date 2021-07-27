@@ -12,7 +12,9 @@ module Larvata::Mechanisms::Inputs::FileHelper
     filename = file&.metadata&.dig('filename')
     file_thumbnail_url = image?(file) ? file_preview_url(model, field_name, preview_thumbnail) : "larvata/mechanisms/file_types/#{extname(file)}.png"
 
-    preview_thumbnail_url = file_thumbnail_url.presence || "https://fakeimg.pl/#{preview_width}x#{preview_height}/?text=#{preview_placeholder}&font=noto"
+    fakeimg_url = "https://fakeimg.pl/#{preview_width}x#{preview_height}/?text=#{preview_placeholder}&font=noto"
+
+    preview_thumbnail_url = file_thumbnail_url.presence || fakeimg_url
 
     file_field_content = content_tag(:div, class: 'form-group') do
       file_field = form.file_field field_name.to_s,
@@ -34,13 +36,26 @@ module Larvata::Mechanisms::Inputs::FileHelper
                                    }
 
       hidden_field = form.hidden_field field_name, id: "album-#{field_name.to_s}", value: model.send("cached_#{field_name.to_s}_data")
+      hidden_remove_field = form.hidden_field "remove_#{field_name}".to_sym, id: "album-remove-#{field_name.to_s}", as: :hidden, value: false
 
-      file_field + hidden_field
+      file_field + hidden_field + hidden_remove_field
     end
 
-    image_preview = content_tag(:div, class: 'row') do
-      filename_part = content_tag(:div, class: 'col-md-12') do
-        filename
+    image_preview = content_tag(:div, class: "row") do
+      filename_part = content_tag(:div, class: "col-md-12 js-preview-#{field_name}-action-div") do
+        content_tag(:div, class: 'row') do
+          icon_part = content_tag(:div, class: 'col-md-1') do
+            tag.span class: 'material-icons js-delete-file', data: {field_name: field_name, model: model.class.name.downcase, fakeimg_url: fakeimg_url} do
+              'delete_forever'
+            end
+          end
+
+          filename_part = content_tag(:div, class: 'col-md-11') do
+            filename
+          end
+
+          icon_part + filename_part
+        end if filename
       end
 
       image_tag_part = content_tag(:div, class: 'col-md-12 image-preview') do
