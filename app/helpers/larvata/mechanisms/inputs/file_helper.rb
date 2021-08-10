@@ -54,7 +54,7 @@ module Larvata::Mechanisms::Inputs::FileHelper
             filename
           end
 
-          icon_part + filename_part
+          disabled ? filename_part : icon_part + filename_part
         end if filename
       end
 
@@ -69,7 +69,7 @@ module Larvata::Mechanisms::Inputs::FileHelper
       image_tag_part + filename_part
     end
 
-    file_field_content + image_preview
+    disabled ? image_preview : file_field_content + image_preview
   end
 
   private
