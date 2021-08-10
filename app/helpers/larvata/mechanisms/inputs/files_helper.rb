@@ -51,7 +51,7 @@ module Larvata::Mechanisms::Inputs::FilesHelper
                   label_tag filename(file)
                 end
 
-                icon_part + destroy_part + label_part
+                disabled ? label_part : icon_part + destroy_part + label_part
               end
             end
 
@@ -61,7 +61,7 @@ module Larvata::Mechanisms::Inputs::FilesHelper
       end
     end
 
-    file_field + attachments_list
+    disabled ? attachments_list : file_field + attachments_list
   end
 
   private
