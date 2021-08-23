@@ -1,6 +1,6 @@
 {
   "name": "larvata-mechanisms",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Larvata Mechanisms provides javascripts and helpers",
   "main": "index.js",
   "private": false,
