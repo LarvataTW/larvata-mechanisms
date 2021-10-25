@@ -22,7 +22,15 @@ class Larvata::Mechanisms::DatatablesService
         end_value = search_value_array[1]
 
         filters["#{search_column}_gteq".to_sym] = start_value if start_value.present?
-        filters["#{search_column}_lteq".to_sym] = end_value if end_value.present?
+        if end_value.present?
+          begin
+            DateTime.parse(end_value) # 判斷是否為日期時間格式
+            filters["#{search_column}_lteq".to_sym] = end_value if end_value.size > 10 # 包含時分秒
+            filters["#{search_column}_lteq".to_sym] = "#{end_value} 23:59:59" if end_value.size <= 10 # 只有日期
+          rescue ArgumentError
+            filters["#{search_column}_lteq".to_sym] = end_value
+          end
+        end
       elsif search_column.include? "_enum" # enum 查詢
         search_column = search_column.gsub('_enum', '')
 
