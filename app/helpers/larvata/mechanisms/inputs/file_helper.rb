@@ -16,7 +16,7 @@ module Larvata::Mechanisms::Inputs::FileHelper
 
     preview_thumbnail_url = file_thumbnail_url.presence || fakeimg_url
 
-    file_field_content = content_tag(:div, class: 'form-group') do
+    file_field_content = content_tag(:div, class: 'bmd-form-group form-group') do
       file_field = form.file_field field_name.to_s,
                                    class: 'uppy-choose', disabled: disabled,
                                    accept: defined?(uploader::ALLOWED_TYPES) ? uploader::ALLOWED_TYPES.join(",") : nil,

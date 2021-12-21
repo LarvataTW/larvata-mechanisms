@@ -9,7 +9,7 @@ module Larvata::Mechanisms::Inputs::EnumHelper
   def enum_tag(label: '', name:, enum_values:, value:, class_name: '', disabled: false)
     select_options = Hash[enum_values.collect { |enum_value| [enum_value, enum_value.text] } ]
 
-    content_tag(:div, class: 'form-group') do
+    content_tag(:div, class: 'bmd-form-group form-group') do
       label_content = content_tag(:div, class: 'col-md-6') do
         label_tag(label, nil, class: 'bmd-label-floating is-filled')
       end
