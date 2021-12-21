@@ -6,7 +6,7 @@ module Larvata::Mechanisms::Inputs::FilesHelper
   # preview_thumbnail: 縮圖類別
   def files_tag(label:, form:, uploader:, disabled: false, association: :attachments, preview_thumbnail: nil)
     file_field = content_tag(:div, class: 'col-md-12') do
-      content_tag(:div, class: 'form-group') do
+      content_tag(:div, class: 'bmd-form-group form-group') do
         form.file_field association, multiple: true, disabled: disabled,
                         accept: uploader::ALLOWED_TYPES.join(","),
                         data: {
