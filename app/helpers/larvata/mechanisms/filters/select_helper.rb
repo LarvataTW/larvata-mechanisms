@@ -7,13 +7,15 @@ module Larvata::Mechanisms::Filters::SelectHelper
   # multiple: 是否為多選，預設為 false
   # disabled: 是否禁用
   def select_filter_tag(label:, name:, collection: [], value: '', class_name: '', multiple: false, disabled: false)
-    content_tag(:div, class: 'bmd-form-group form-group') do
-      label_tag(label, nil, class: 'bmd-label-floating') +
-        select_tag(name,
-                   options_for_select(collection, value),
-                   class: "form-control filter-#{name} filter-select-condition #{class_name}",
-                   disabled: disabled,
-                   multiple: multiple)
+    content_tag(:div, class: 'bmd-form-group') do
+      content_tag(:div, class: 'form-group is-filled') do
+        label_tag(label, nil, class: 'bmd-label-floating') +
+          select_tag(name,
+                     options_for_select(collection, value),
+                     class: "form-control filter-#{name} filter-select-condition #{class_name}",
+                     disabled: disabled,
+                     multiple: multiple)
+      end
     end
   end
 end
